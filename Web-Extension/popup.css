@@ -1,0 +1,219 @@
+/* --- Setup & Variables --- */
+:root {
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --width: 340px;
+    --radius-lg: 16px; /* For the main popup */
+    --radius-md: 12px; /* For internal elements */
+    --radius-sm: 8px;  /* For smaller elements */
+
+    /* Colors */
+    --bg-body: #f8fafc;
+    --bg-container: #ffffff;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-on-color: #ffffff;
+    --border-color: #e2e8f0;
+
+    /* Status Gradients */
+    --grad-safe: linear-gradient(135deg, #10b981 0%, #0f9d6e 100%);
+    --grad-unsafe: linear-gradient(135deg, #f43f5e 0%, #d93650 100%);
+    --grad-warning: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    --grad-error: linear-gradient(135deg, #f59e0b 0%, #e68e00 100%);
+    --grad-neutral: linear-gradient(135deg, #64748b 0%, #5a6a7e 100%);
+    
+    /* Warning Colors */
+    --warning-bg: #fef2f2;
+    --warning-fg: #ef4444;
+
+    /* Shadows */
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Base (For popup.html) --- */
+/* * CHANGED: Select `#extension-body` instead of `body` to prevent
+ * styling the main web page.
+ */
+#extension-body {
+    width: var(--width);
+    font-family: var(--font-family);
+    margin: 0;
+    background-color: var(--bg-body);
+    box-sizing: border-box;
+    
+    /* * Merged the reset styles here.
+     * This ensures the popup.html body doesn't get "fixed"
+     * positioning from the rule below.
+    */
+    position: static;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* ---
+   Main In-Page Popup Styling (from content.js)
+--- */
+#url-safety-checker-popup {
+    width: var(--width);
+    font-family: var(--font-family);
+    background-color: var(--bg-container);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+    /* These are for content.js */
+    position: fixed;
+    top: 25px;
+    right: 25px;
+    z-index: 999999;
+}
+
+/* --- (This rule is no longer needed, it was merged above) --- */
+/*
+body {
+    position: static;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+*/
+
+.container {
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ---
+   Close Button (for content.js popup)
+   Moved from inline styles in content.js
+--- */
+.url-safety-close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    border: none;
+    background: transparent;
+    font-size: 26px;
+    font-weight: 300;
+    cursor: pointer;
+    color: #94a3b8;
+    padding: 5px;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+.url-safety-close-button:hover {
+    color: var(--text-primary);
+}
+
+
+/* --- Status Header --- */
+.status-header {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    color: var(--text-on-color);
+    box-shadow: var(--shadow-md);
+}
+
+#status-icon {
+    font-size: 1.8em; /* Larger icon */
+    line-height: 1;
+    margin-right: 15px;
+    /* Add a subtle bg to the icon itself */
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.status-header h2 {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 600;
+}
+
+/* Status Colors */
+.status-neutral { background: var(--grad-neutral); }
+.status-safe    { background: var(--grad-safe); }
+.status-warning { background: var(--grad-warning); }
+.status-unsafe  { background: var(--grad-unsafe); }
+.status-error   { background: var(--grad-error); }
+
+/* --- URL Display --- */
+.url-display {
+    background-color: #f1f5f9; /* Lighter than before */
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9em; /* Slightly smaller */
+    word-break: break-all;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    line-height: 1.4;
+}
+
+/* --- Details Section --- */
+.details-section {
+    /* This section is now simpler */
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+.details-section h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+#warnings-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.95em;
+    color: var(--text-secondary);
+}
+
+#warnings-list li {
+    padding: 12px 0; /* More spacing */
+    display: flex;
+    align-items: center; /* Center icon with first line */
+    border-bottom: 1px solid #f1f5f9; /* Separator */
+    line-height: 1.5;
+}
+
+#warnings-list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+#warnings-list li::before {
+    content: '!'; /* Exclamation mark */
+    font-weight: 700;
+    font-size: 0.9em;
+    margin-right: 12px;
+    flex-shrink: 0;
+
+    /* Icon circle */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    
+    /* Warning colors */
+    background-color: var(--warning-bg);
+    color: var(--warning-fg);
+}
