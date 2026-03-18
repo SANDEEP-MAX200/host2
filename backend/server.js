@@ -41,20 +41,8 @@ app.use((req, res, next) => {
 });
 
 app.use(cors({
-  origin: (origin, callback) => {
-    if (
-      !origin ||
-      allowedLocalhost.includes(origin) ||
-      ngrokRegex.test(origin) ||
-      origin.startsWith("chrome-extension://")
-    ) {
-      callback(null, true);
-    } else {
-      console.error("Blocked CORS for origin:", origin);
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
+  origin: true,
+  credentials: true
 }));
 
 // ---------------------
