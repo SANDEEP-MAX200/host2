@@ -65,7 +65,7 @@ app.set("views", "./views");
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://localhost:5000/user/auth/google/callback"
+  callbackURL: "https://host2-weob.onrender.com/user/auth/google/callback"
 },
 async (accessToken, refreshToken, profile, done) => {
   try {
