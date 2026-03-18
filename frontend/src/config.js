@@ -1,1 +1,0 @@
-export const API_BASE = "https://host2-weob.onrender.com"

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-const API_BASE = process.env.REACT_APP_API_BASE
+import { API_URL } from '../../utils/api.js';
 
 const Profile = () => {
   const [profile, setProfile] = useState({ email: "", role: "" });
@@ -10,7 +10,7 @@ const Profile = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const res = await fetch(`${API_BASE}/user/profile`, {
+      const res = await fetch(`${API_URL}/user/profile`, {
         method: "GET",
         credentials: "include",
       });
@@ -25,7 +25,7 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${API_BASE}/user/updateProfile`, {
+    const res = await fetch(`${API_URL}/user/updateProfile`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -39,7 +39,7 @@ const Profile = () => {
     const confirmDelete = window.confirm(t("profile.delete_confirm"));
     if (!confirmDelete) return;
 
-    const res = await fetch(`${API_BASE}/user/delete-account`, {
+    const res = await fetch(`${API_URL}/user/delete-account`, {
       method: "DELETE",
       credentials: "include",
     });

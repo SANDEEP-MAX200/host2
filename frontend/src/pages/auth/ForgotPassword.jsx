@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-const API_BASE = process.env.REACT_APP_API_BASE
+import { API_URL } from '../../utils/api.js';
 
 const Otp_verification = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ const Otp_verification = () => {
     setotpsent(true);
     setmsg(t("forgot.otp_sent"));
     try {
-      const res = await fetch(`${API_BASE}/user/forgotpass`, {
+      const res = await fetch(`${API_URL}/user/forgotpass`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -44,7 +44,7 @@ const Otp_verification = () => {
       credentials: "include",
     };
     try {
-      const res = await fetch(`${API_BASE}/user/forgotverify`, request);
+      const res = await fetch(`${API_URL}/user/forgotverify`, request);
       if (res.status == 201) {
         setmsg(t("forgot.otp_sent"));
         navigator("/changepass");

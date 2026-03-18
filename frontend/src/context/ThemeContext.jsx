@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-const API_BASE = process.env.REACT_APP_API_BASE
+
 const ThemeContext = createContext();
 
 export const useTheme = () => useContext(ThemeContext);

@@ -3,8 +3,7 @@ import { FaFingerprint, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
-const API_BASE = "https://host2-weob.onrender.com";
+import { API_URL } from '../../utils/api.js';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(true);
@@ -19,7 +18,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${API_BASE}/login`, {
+      const res = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -153,7 +152,7 @@ const Login = () => {
         <div className="w-full flex items-center justify-center">
           <div className="w-full p-1 md:px-6 lg:px-10 rounded-xl hover:scale-105 transition-all duration-300 ease-in-out flex items-center justify-center">
             <button
-              onClick={() => window.location.href = `${API_BASE}/user/auth/google`}
+              onClick={() => window.location.href = `${API_URL}/user/auth/google`}
               className="flex items-center justify-center"
             >
               <img

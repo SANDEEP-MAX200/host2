@@ -3,7 +3,6 @@ import Navbarwithlanguage from "../../components/Navbar/Navbar";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-const API_BASE = process.env.REACT_APP_API_BASE
 
 export default function UnauthorizedAccess() {
   const { theme } = useTheme();

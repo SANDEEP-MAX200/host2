@@ -3,7 +3,7 @@ import Navbarwithlanguage from "../../components/Navbar/Navbar";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-const API_BASE = process.env.REACT_APP_API_BASE
+import { API_URL } from '../../utils/api.js';
 
 const URLListItem = ({ url, type, onDelete, darkMode, t }) => (
   <div className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-300 hover:shadow-lg ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}>
@@ -67,14 +67,14 @@ export default function URLManagement() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const access = await fetch(`${API_BASE}/admin/checkaccess`, { credentials: "include", method: "GET" });
+        const access = await fetch(`${API_URL}/admin/checkaccess`, { credentials: "include", method: "GET" });
         if (access.status === 403) { navigate("/blocked"); return; }
         if (!access.ok) { navigate("/login"); return; }
 
-        const wRes = await fetch(`${API_BASE}/user/get/whitelist`, { credentials: "include", method: "GET" });
+        const wRes = await fetch(`${API_URL}/user/get/whitelist`, { credentials: "include", method: "GET" });
         if (wRes.ok) { const data = await wRes.json(); setWhitelist(data.whitelist || []); }
 
-        const bRes = await fetch(`${API_BASE}/user/get/blacklist`, { credentials: "include", method: "GET" });
+        const bRes = await fetch(`${API_URL}/user/get/blacklist`, { credentials: "include", method: "GET" });
         if (bRes.ok) { const data = await bRes.json(); setBlacklist(data.blacklist || []); }
       } catch (err) {
         console.error("Fetch error:", err);
@@ -87,7 +87,7 @@ export default function URLManagement() {
 
   const handleAddURL = async (url, type) => {
     try {
-      const endpoint = type === "whitelist" ? `${API_BASE}/user/add/whitelist` : `${API_BASE}/user/add/blacklist`;
+      const endpoint = type === "whitelist" ? `${API_URL}/user/add/whitelist` : `${API_URL}/user/add/blacklist`;
       const res = await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ url }) });
       if (res.ok) {
         type === "whitelist" ? setWhitelist(prev => [...prev, url]) : setBlacklist(prev => [...prev, url]);
@@ -97,7 +97,7 @@ export default function URLManagement() {
 
   const handleDeleteURL = async (url, type) => {
     try {
-      const endpoint = type === "whitelist" ? `${API_BASE}/user/delete/whitelist` : `${API_BASE}/user/delete/blacklist`;
+      const endpoint = type === "whitelist" ? `${API_URL}/user/delete/whitelist` : `${API_URL}/user/delete/blacklist`;
       const res = await fetch(endpoint, { method: "DELETE", headers: { "Content-Type": "application/json" }, credentials: "include", body: JSON.stringify({ url }) });
       if (res.ok) {
         type === "whitelist" ? setWhitelist(prev => prev.filter(u => u !== url)) : setBlacklist(prev => prev.filter(u => u !== url));

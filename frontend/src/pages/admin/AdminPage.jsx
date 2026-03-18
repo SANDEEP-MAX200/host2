@@ -6,7 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { FaRegEye, FaRegEyeSlash, FaUserShield } from "react-icons/fa";
 import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-const API_BASE = process.env.REACT_APP_API_BASE
+import { API_URL } from '../../utils/api.js';
 
 const SummaryCard = ({ value, darkMode, icon: Icon, label }) => (
   <div className={`flex items-center gap-5 p-6 rounded-2xl border shadow-sm ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}>
@@ -90,7 +90,7 @@ export default function AdminPage() {
   useEffect(() => {
     const checkRole = async () => {
       try {
-        const res = await fetch(`${API_BASE}/admin/auth/me`, { credentials: "include" });
+        const res = await fetch(`${API_URL}/admin/auth/me`, { credentials: "include" });
         if (res.status === 401) { navigate("/login"); return; }
         if (res.status === 403) { navigate("/blocked"); return; }
         if (!res.ok) { navigate("/blocked"); return; }
@@ -104,7 +104,7 @@ export default function AdminPage() {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch(`${API_BASE}/admin/users`, { credentials: "include" });
+      const res = await fetch(`${API_URL}/admin/users`, { credentials: "include" });
       if (res.status === 401) { navigate("/login"); return; }
       const data = await res.json();
       setUsers(data.users || []);
@@ -119,7 +119,7 @@ export default function AdminPage() {
 
   const handleAddUser = async (e) => {
     e.preventDefault();
-    const res = await fetch(`${API_BASE}/admin/users/add`, {
+    const res = await fetch(`${API_URL}/admin/users/add`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -131,7 +131,7 @@ export default function AdminPage() {
   };
 
   const handleDeleteConfirm = async () => {
-    await fetch(`${API_BASE}/admin/users/delete`, {
+    await fetch(`${API_URL}/admin/users/delete`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
@@ -144,7 +144,7 @@ export default function AdminPage() {
   const handleTogglePermission = async (user) => {
     setUsers((prevUsers) => prevUsers.map((u) => u.email === user.email ? { ...u, canManageUrls: !u.canManageUrls } : u));
     try {
-      await fetch(`${API_BASE}/admin/users/permission`, {
+      await fetch(`${API_URL}/admin/users/permission`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -155,7 +155,7 @@ export default function AdminPage() {
 
   const handleExport = (format) => {
     const params = new URLSearchParams({ format, dept: deptFilter, targetEmail: "" });
-    window.open(`${API_BASE}/admin/users/export?${params.toString()}`, "_blank");
+    window.open(`${API_URL}/admin/users/export?${params.toString()}`, "_blank");
   };
 
   const filteredUsers = users.filter((u) =>
