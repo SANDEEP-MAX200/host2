@@ -45,9 +45,9 @@ const handleSignup = async (req, res) => {
     };
     const jwttoken = jwt.sign(payload, key);
     res.cookie("token", jwttoken, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+     httpOnly: true,
+  secure: true,
+  sameSite: "None",
     });
 
     const extpay = {
@@ -90,8 +90,8 @@ export const handleLogin = async (req, res) => {
     // Store in cookie
     res.cookie("token", token, {
       httpOnly: true,
-      secure: false, // set true in production with HTTPS
-      sameSite: "Lax",
+  secure: true,
+  sameSite: "None",
     });
 
     const extpay = {
