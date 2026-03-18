@@ -8,8 +8,9 @@ import { requirepayment } from "../middleware/paymentAccess.js";
 
 const router = express.Router();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY );
-const CLIENT_URL = process.env.CLIENT_URL || "http://localhost:5173";
+const CLIENT_URL = process.env.CLIENT_URL ;
 const JWT_SECRET = process.env.JWT_SECRET || "secret";
+const backendUrl = process.env.BACKEND_URL 
 
 // Top-up packages
 const TOKEN_PACKAGES = {
@@ -72,7 +73,7 @@ const createCheckoutSession = async (req, planRes) => {
         userEmail: userEmail,
         tokens: String(planConfig.tokens)
       },
-      success_url: `http://localhost:5000/api/payment/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${backendUrl}/api/payment/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${CLIENT_URL}/pricing`,
     });
 
@@ -222,7 +223,7 @@ async function createTokenCheckout(req, res) {
         tokens: String(pkg.tokens),
         tokenPurchase: "true",
       },
-      success_url: `http://localhost:5000/api/payment/token-success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${backendUrl}/api/payment/token-success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${CLIENT_URL}/buy-tokens`,
     });
 
