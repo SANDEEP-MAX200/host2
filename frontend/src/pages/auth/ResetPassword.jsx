@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { API_BASE } from '../../config.js';
 
 const Forgot_password_change = () => {
   const [pass, setpass] = useState('');
@@ -19,7 +20,7 @@ const Forgot_password_change = () => {
       credentials: "include",
     };
     try {
-      const res = await fetch("http://localhost:5000/user/changepass", request);
+      const res = await fetch(`${API_BASE}/user/changepass`, request);
       if (res.status == 402) return setmsg(t("change_pass.error_unauth"));
       if (res.status == 201) {
         setmsg(t("change_pass.success"));

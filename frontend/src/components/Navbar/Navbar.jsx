@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "../../context/ThemeContext.jsx";
 import { useTranslation } from "react-i18next";
+import { API_BASE } from "../../config.js";
 
 export default function Navbarwithlanguage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -36,7 +37,7 @@ export default function Navbarwithlanguage() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:5000/check", {
+        const res = await fetch(`${API_BASE}/check`, {
           method: "GET",
           credentials: "include",
         });
@@ -62,7 +63,7 @@ export default function Navbarwithlanguage() {
 
   const logouthandler = async () => {
     try {
-      await fetch("http://localhost:5000/logout", {
+      await fetch(`${API_BASE}/logout`, {
         method: "GET",
         credentials: "include",
       });

@@ -5,6 +5,7 @@ import { useTheme } from "../../context/ThemeContext";
 import { FiLink, FiSearch, FiShield, FiCheckCircle, FiAlertTriangle, FiXCircle } from "react-icons/fi";
 import Loader from "./ScanAnimation";
 import { useTranslation } from "react-i18next";
+import { API_BASE } from "../../config.js";
 
 export default function Scanner() {
   const [input, setInput] = useState("");
@@ -53,7 +54,7 @@ export default function Scanner() {
     setScanResult(null);
 
     try {
-      const res = await fetch("http://localhost:5000/", {
+      const res = await fetch(`${API_BASE}/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ url: input }),

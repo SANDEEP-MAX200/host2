@@ -4,6 +4,7 @@ import { Coins, Zap, CheckCircle } from "lucide-react";
 import Navbarwithlanguage from "../../components/Navbar/Navbar";
 import { useTheme } from "../../context/ThemeContext.jsx";
 import { useTranslation } from "react-i18next";
+import { API_BASE } from "../../config.js";
 
 const PACKAGES = [
   { id: "100", label: "Starter", tokens: 100, price: 500, descKey: "buy_tokens.starter_desc", popular: false },
@@ -79,7 +80,7 @@ export default function BuyTokens() {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:5000/check", { credentials: "include" });
+        const res = await fetch(`${API_BASE}/check`, { credentials: "include" });
         const data = await res.json();
         if (!data.loggedIn) { navigate("/login"); return; }
         setTokenBalance(data.token_balance);
@@ -94,7 +95,7 @@ export default function BuyTokens() {
   const handlePurchase = async (pkg) => {
     setLoading(pkg.id);
     try {
-      const res = await fetch("http://localhost:5000/api/payment/create-token-checkout", {
+      const res = await fetch(`${API_BASE}/api/payment/create-token-checkout`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

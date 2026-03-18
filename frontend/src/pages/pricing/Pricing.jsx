@@ -2,6 +2,7 @@ import { useState } from "react";
 import Navbarwithlanguage from "../../components/Navbar/Navbar";
 import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
+import { API_BASE } from "../../config.js";
 
 function PricingCard({ plan, darkMode, isPopular, onSubscribe, loadingPlan, t }) {
   return (
@@ -50,7 +51,7 @@ export default function Pricing() {
     if (plan.price === "Free") { window.location.href = "/scanner"; return; }
     setLoadingPlan(plan.name);
     try {
-      const response = await fetch("http://localhost:5000/api/payment/create-checkout-session", {
+      const response = await fetch(`${API_BASE}/api/payment/create-checkout-session`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

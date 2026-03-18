@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { API_BASE } from "../../config.js";
 
 const RegistrationForm = () => {
   const [name, setName] = useState("");
@@ -59,7 +60,7 @@ const RegistrationForm = () => {
     setMessage(t("signup.otp_sent"));
 
     try {
-      const res = await fetch("http://localhost:5000/user/send-otp", {
+      const res = await fetch(`${API_BASE}/user/send-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -85,7 +86,7 @@ const RegistrationForm = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/signup", request);
+      const res = await fetch(`${API_BASE}/signup`, request);
       const data = await res.json();
 
       if (res.status === 400) { setMessage(t("signup.error_logout")); return; }

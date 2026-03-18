@@ -3,6 +3,7 @@ import Navbarwithlanguage from "../../components/Navbar/Navbar";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { API_BASE } from "../../config.js";
 
 export default function URLRequestPage() {
   const { theme } = useTheme();
@@ -31,7 +32,7 @@ export default function URLRequestPage() {
   useEffect(() => {
     const checkRole = async () => {
       try {
-        const res = await fetch("http://localhost:5000/user/auth/me", { credentials: "include" });
+        const res = await fetch(`${API_BASE}/user/auth/me`, { credentials: "include" });
         if (res.status === 401) { navigate("/login"); return; }
         if (res.status === 403) { navigate("/blocked"); return; }
         if (!res.ok) { navigate("/blocked"); return; }
@@ -57,7 +58,7 @@ export default function URLRequestPage() {
     }
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/admin/url/request", {
+      const res = await fetch(`${API_BASE}/admin/url/request`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
