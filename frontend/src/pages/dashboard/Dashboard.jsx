@@ -5,6 +5,7 @@ import { useTheme } from "../../context/ThemeContext";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend } from "chart.js";
 import { useTranslation } from "react-i18next";
+const API_BASE = process.env.REACT_APP_API_BASE
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
@@ -85,7 +86,7 @@ export default function Dashboard() {
 
   const fetchAnalytics = async (start, end) => {
     try {
-      const res = await fetch(`http://localhost:5000/user/analytics/period?startDate=${start}&endDate=${end}`, { credentials: "include" });
+      const res = await fetch(`${API_BASE}/user/analytics/period?startDate=${start}&endDate=${end}`, { credentials: "include" });
       const data = await res.json();
       setStats({ totalScans: data.totalScans, blockedUnsafe: data.blockedUnsafe, potentiallyRisky: data.potentiallyRisky || 0, unsafe: data.unsafe || 0, safe: data.safe || 0 });
     } catch (err) { console.error("Failed to fetch analytics", err); }
@@ -102,7 +103,7 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const endpoint = email ? `http://localhost:5000/admin/users/view/${encodeURIComponent(email)}` : "http://localhost:5000/dashboard";
+        const endpoint = email ? `${API_BASE}/admin/users/view/${encodeURIComponent(email)}` : `${API_BASE}/dashboard`;
         const res = await fetch(endpoint, { credentials: "include" });
         if (res.status === 401) { navigate("/pricing"); }
         if (res.status === 403) { navigate("/login", { replace: true }); return; }

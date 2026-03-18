@@ -6,7 +6,7 @@ import { MdDelete } from "react-icons/md";
 import { FaRegEye, FaRegEyeSlash, FaUserShield } from "react-icons/fa";
 import { X } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { API_BASE } from "../../config.js";
+const API_BASE = process.env.REACT_APP_API_BASE
 
 const SummaryCard = ({ value, darkMode, icon: Icon, label }) => (
   <div className={`flex items-center gap-5 p-6 rounded-2xl border shadow-sm ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}>

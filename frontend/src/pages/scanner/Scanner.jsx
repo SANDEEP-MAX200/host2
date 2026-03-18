@@ -5,7 +5,7 @@ import { useTheme } from "../../context/ThemeContext";
 import { FiLink, FiSearch, FiShield, FiCheckCircle, FiAlertTriangle, FiXCircle } from "react-icons/fi";
 import Loader from "./ScanAnimation";
 import { useTranslation } from "react-i18next";
-import { API_BASE } from "../../config.js";
+const API_BASE = process.env.REACT_APP_API_BASE
 
 export default function Scanner() {
   const [input, setInput] = useState("");

@@ -3,7 +3,7 @@ import Navbarwithlanguage from "../../components/Navbar/Navbar";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { API_BASE } from "../../config.js";
+const API_BASE = process.env.REACT_APP_API_BASE
 
 const URLListItem = ({ url, type, onDelete, darkMode, t }) => (
   <div className={`flex items-center justify-between p-4 rounded-xl border transition-all duration-300 hover:shadow-lg ${darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"}`}>

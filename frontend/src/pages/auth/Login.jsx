@@ -3,7 +3,8 @@ import { FaFingerprint, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { API_BASE } from "../../config.js";
+
+const API_BASE = "https://host2-weob.onrender.com";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(true);

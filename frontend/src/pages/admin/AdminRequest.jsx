@@ -3,7 +3,7 @@ import Navbarwithlanguage from "../../components/Navbar/Navbar";
 import { useTheme } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { API_BASE } from "../../config.js";
+const API_BASE = process.env.REACT_APP_API_BASE
 
 export default function URLRequestPage() {
   const { theme } = useTheme();

@@ -4,7 +4,7 @@ import { Coins, Zap, CheckCircle } from "lucide-react";
 import Navbarwithlanguage from "../../components/Navbar/Navbar";
 import { useTheme } from "../../context/ThemeContext.jsx";
 import { useTranslation } from "react-i18next";
-import { API_BASE } from "../../config.js";
+const API_BASE = process.env.REACT_APP_API_BASE
 
 const PACKAGES = [
   { id: "100", label: "Starter", tokens: 100, price: 500, descKey: "buy_tokens.starter_desc", popular: false },

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { API_BASE } from '../../config.js';
+const API_BASE = process.env.REACT_APP_API_BASE
 
 const Forgot_password_change = () => {
   const [pass, setpass] = useState('');

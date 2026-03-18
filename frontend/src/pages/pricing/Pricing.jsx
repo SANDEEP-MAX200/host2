@@ -2,7 +2,7 @@ import { useState } from "react";
 import Navbarwithlanguage from "../../components/Navbar/Navbar";
 import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
-import { API_BASE } from "../../config.js";
+const API_BASE = process.env.REACT_APP_API_BASE
 
 function PricingCard({ plan, darkMode, isPopular, onSubscribe, loadingPlan, t }) {
   return (

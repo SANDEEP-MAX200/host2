@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbarwithlanguage from "../../components/Navbar/Navbar.jsx";
 import { useTheme } from "../../context/ThemeContext";
 import { useTranslation } from "react-i18next";
+const API_BASE = process.env.REACT_APP_API_BASE
 
 const AwarenessPage = () => {
   const [target, setTargetUrl] = useState("");
